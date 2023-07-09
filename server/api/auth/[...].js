@@ -2,7 +2,7 @@ import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { NuxtAuthHandler } from "#auth"
 
-export default NuxtAuthHandler({
+const options = {
   providers: [
     GoogleProvider.default({
       clientId: '104761496216-64e98sqadehcbv8o2e7apljv4rib6657.apps.googleusercontent.com',
@@ -15,4 +15,14 @@ export default NuxtAuthHandler({
       }
     })
   ]
-})
+}
+
+
+export default (event) => {
+
+  appendResponseHeader(event, "set-cookie", "value=test;")
+
+  return NuxtAuthHandler(options)(event)
+}
+
+// export default NuxtAuthHandler(options)
